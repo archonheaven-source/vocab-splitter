@@ -3,50 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocabulary Splitter - Optimize Your Word List</title>
+    <title>VocabSplitter Pro - Smart Vocabulary Organizer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        .ad-placeholder { background: #f3f4f6; border: 1px dashed #ccc; text-align: center; padding: 20px; margin-bottom: 20px; }
+        body { font-family: 'Inter', sans-serif; }
+        .ad-spot { background: repeating-linear-gradient(45deg, #f9fafb, #f9fafb 10px, #f3f4f6 10px, #f3f4f6 20px); border: 2px dashed #e5e7eb; }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-[#f8fafc] text-slate-900">
 
-    <div class="max-w-4xl mx-auto p-5">
-        <!-- AdSense Upper Area (Above the Fold) -->
-        <div class="ad-placeholder">
-            <p class="text-gray-400 text-sm">-- Google AdSense Area (Auto Ads / Banner) --</p>
+    <!-- Header Ad Area -->
+    <div class="max-w-5xl mx-auto mt-4 px-4">
+        <div class="ad-spot h-24 rounded-xl flex items-center justify-center text-slate-400 text-sm">
+            Google AdSense - Top Banner Placement
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto py-12 px-4 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Main Workstation -->
+        <div class="lg:col-span-8 space-y-6">
+            <header class="mb-8">
+                <div class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                    Pro Version 2.0
+                </div>
+                <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+                    Vocab<span class="text-indigo-600">Splitter</span>
+                </h1>
+                <p class="mt-3 text-lg text-slate-600">จัดการลิสต์คำศัพท์ให้เป็นระเบียบ พร้อมใช้งานสำหรับ Anki, Excel หรือการเรียนรู้ระดับสูง</p>
+            </header>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6">
+                    <textarea id="inputText" 
+                        class="w-full h-64 p-5 text-lg border-none focus:ring-0 placeholder-slate-400 resize-none" 
+                        placeholder="วางข้อความหรือรายการคำศัพท์ที่นี่..."></textarea>
+                </div>
+                <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-wrap gap-3 justify-between">
+                    <button onclick="clearAll()" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-700 transition">
+                        ล้างข้อมูล
+                    </button>
+                    <button onclick="processText()" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-1">
+                        เริ่มประมวลผลทันที
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Area -->
+            <div id="resultArea" class="hidden space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center">
+                        <span class="block text-2xl font-bold text-indigo-600" id="statTotal">0</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-widest">คำทั้งหมด</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm text-center">
+                        <span class="block text-2xl font-bold text-emerald-600" id="statUnique">0</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-widest">คำที่ไม่ซ้ำ</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="p-6">
+                        <div id="outputList" class="whitespace-pre-wrap font-mono text-slate-700 leading-relaxed max-h-96 overflow-y-auto p-4 bg-slate-50 rounded-xl"></div>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex gap-3">
+                        <button onclick="copyToClipboard()" class="flex-1 px-6 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl transition">
+                            คัดลอกผลลัพธ์
+                        </button>
+                        <button onclick="downloadTxt()" class="px-6 py-3 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold rounded-xl transition">
+                            โหลด .TXT
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-blue-600 mb-2">Vocabulary Splitter</h1>
-            <p class="text-gray-600">แยกคำศัพท์ แปลงข้อความให้เป็นรายการคำศัพท์ที่พร้อมใช้งาน</p>
-        </header>
-
-        <main class="bg-white p-8 rounded-2xl shadow-lg">
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">วางข้อความที่นี่:</label>
-                <textarea id="inputText" class="w-full h-48 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="เช่น: Apple, Banana; Cherry..."></textarea>
+        <!-- Sidebar / Ad Area -->
+        <div class="lg:col-span-4 space-y-6">
+            <div class="bg-indigo-900 rounded-3xl p-6 text-white shadow-xl shadow-indigo-100">
+                <h3 class="text-lg font-bold mb-2">เคล็ดลับการใช้งาน 💡</h3>
+                <p class="text-indigo-200 text-sm leading-relaxed">
+                    ระบบจะตัดอักขระพิเศษและแยกคำซ้ำให้อัตโนมัติ ช่วยให้คุณนำลิสต์ไปใช้ในแอปคำศัพท์ได้ทันที
+                </p>
             </div>
 
-            <div class="flex gap-4 mb-8">
-                <button onclick="processText()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition">
-                    แยกคำศัพท์ทันที
-                </button>
-                <button onclick="copyToClipboard()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl transition">
-                    คัดลอกผลลัพธ์
-                </button>
+            <div class="ad-spot h-[400px] rounded-3xl flex items-center justify-center text-slate-400 text-sm p-6 text-center">
+                Google AdSense - Sidebar Vertical Banner
             </div>
+        </div>
+    </div>
 
-            <div id="resultArea" class="hidden">
-                <label class="block text-gray-700 font-semibold mb-2">ผลลัพธ์ (แยกตามรายการ):</label>
-                <div id="outputList" class="p-4 bg-blue-50 border border-blue-100 rounded-xl text-gray-800 leading-relaxed"></div>
-                <p id="wordCount" class="mt-2 text-sm text-blue-500 font-medium"></p>
-            </div>
-        </main>
-
-        <!-- AdSense Lower Area -->
-        <div class="ad-placeholder mt-10">
-            <p class="text-gray-400 text-sm">-- Google AdSense Area (Bottom Banner) --</p>
+    <!-- Footer Ad Area -->
+    <div class="max-w-5xl mx-auto mb-12 px-4">
+        <div class="ad-spot h-24 rounded-xl flex items-center justify-center text-slate-400 text-sm">
+            Google AdSense - Bottom Banner Placement
         </div>
     </div>
 
