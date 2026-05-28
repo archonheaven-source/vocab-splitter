@@ -8,14 +8,14 @@ function processText() {
     const statUnique = document.getElementById('statUnique');
 
     if (!input.trim()) {
-        alert("กรุณาใส่ข้อความก่อนครับลูกพี่!");
+        alert("Please enter some text first!");
         return;
     }
 
-    // Smart Splitter: แยกด้วยช่องว่าง, comma, semicolon, newline และตัดอักขระพิเศษที่ติดมากับคำ
+    // Smart Splitter: แยกคำและลบอักขระพิเศษออก
     const allWords = input
         .split(/[\s,;\n\t]+/)
-        .map(word => word.replace(/[^\w\sก-๙]/g, '').trim()) // ลบอักขระพิเศษแต่เก็บภาษาไทย/อังกฤษไว้
+        .map(word => word.replace(/[^\w\sก-๙]/g, '').trim())
         .filter(word => word.length > 0);
 
     const uniqueWords = [...new Set(allWords)];
@@ -24,7 +24,7 @@ function processText() {
     statTotal.innerText = allWords.length;
     statUnique.innerText = uniqueWords.length;
 
-    // แสดงผลในรูปแบบรายการที่อ่านง่าย
+    // แสดงผล
     outputList.innerText = uniqueWords.join('\n');
     
     // Show Result Area with Animation
@@ -37,9 +37,9 @@ function copyToClipboard() {
     if (!text) return;
     
     navigator.clipboard.writeText(text).then(() => {
-        const btn = event.target;
+        const btn = document.getElementById('copyBtn');
         const originalText = btn.innerText;
-        btn.innerText = "คัดลอกสำเร็จ!";
+        btn.innerText = "Copied!";
         btn.classList.replace('bg-slate-800', 'bg-green-600');
         
         setTimeout(() => {
