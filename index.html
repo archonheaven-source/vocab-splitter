@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Splitter - Optimize Your Word List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .ad-placeholder { background: #f3f4f6; border: 1px dashed #ccc; text-align: center; padding: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <div class="max-w-4xl mx-auto p-5">
+        <!-- AdSense Upper Area (Above the Fold) -->
+        <div class="ad-placeholder">
+            <p class="text-gray-400 text-sm">-- Google AdSense Area (Auto Ads / Banner) --</p>
+        </div>
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-blue-600 mb-2">Vocabulary Splitter</h1>
+            <p class="text-gray-600">แยกคำศัพท์ แปลงข้อความให้เป็นรายการคำศัพท์ที่พร้อมใช้งาน</p>
+        </header>
+
+        <main class="bg-white p-8 rounded-2xl shadow-lg">
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">วางข้อความที่นี่:</label>
+                <textarea id="inputText" class="w-full h-48 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="เช่น: Apple, Banana; Cherry..."></textarea>
+            </div>
+
+            <div class="flex gap-4 mb-8">
+                <button onclick="processText()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition">
+                    แยกคำศัพท์ทันที
+                </button>
+                <button onclick="copyToClipboard()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl transition">
+                    คัดลอกผลลัพธ์
+                </button>
+            </div>
+
+            <div id="resultArea" class="hidden">
+                <label class="block text-gray-700 font-semibold mb-2">ผลลัพธ์ (แยกตามรายการ):</label>
+                <div id="outputList" class="p-4 bg-blue-50 border border-blue-100 rounded-xl text-gray-800 leading-relaxed"></div>
+                <p id="wordCount" class="mt-2 text-sm text-blue-500 font-medium"></p>
+            </div>
+        </main>
+
+        <!-- AdSense Lower Area -->
+        <div class="ad-placeholder mt-10">
+            <p class="text-gray-400 text-sm">-- Google AdSense Area (Bottom Banner) --</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
